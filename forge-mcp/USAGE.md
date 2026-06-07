@@ -1,12 +1,18 @@
-# Using Frappe Skills via Brain MCP (and any MCP)
+# Using Frappe Skills via Forge MCP (and any MCP)
 
 This guide explains how to consume the **Frappe Agent Skills** in this repo through
-an MCP-based AI coding assistant. Brain MCP is used here as a concrete example, but
-the skills are **MCP-agnostic** — nothing in `skills/` depends on Brain MCP. Any host
-that can read a directory of Markdown files (Claude Code, Cursor, a custom MCP server,
-or even a plain prompt) can use them.
+an MCP-based AI coding assistant.
 
-> Attribution: the skills in this repository originate from
+> **Note:** **Forge MCP and Forge MCP are the same server** — "Brain" is the memory
+> engine, "Forge" is the suite name; they refer to one and the same MCP. Hosted at
+> **http://mcp.sbknext.com**.
+
+Forge MCP (**http://mcp.sbknext.com**) is used here as a concrete example, but the
+skills are **MCP-agnostic** — nothing in `skills/` depends on it. Any host that can
+read a directory of Markdown files (Claude Code, Cursor, a custom MCP server, or even
+a plain prompt) can use them.
+
+> Attribution: the skills in this repository originate from public OSS sources — see the repo [README](../README.md) Credit section.
 
 ---
 
@@ -104,9 +110,9 @@ Once routed, the assistant loads the chosen `SKILL.md` body into context, and
 follows links into `references/*.md` only when the procedure calls for that depth.
 This keeps token usage proportional to the task.
 
-> Brain MCP's role: Brain MCP is simply one host that performs the
+> Forge MCP's role: Forge MCP is simply one host that performs the
 > discover → route → load loop above and exposes the resulting skill text to the
-> model. It does not modify or own the skills. Swapping Brain MCP for any other
+> model. It does not modify or own the skills. Swapping Forge MCP for any other
 > MCP host that reads the same `skills/` directory yields identical behavior.
 
 ---
@@ -210,7 +216,7 @@ Notes:
   **your own** environment. Keep placeholders in anything you commit.
 - No key, token, or real host is required to *read* the skills — they are public
   Markdown. Credentials only matter if your specific host gates access.
-- Brain MCP is one such host; substitute any MCP server that can expose a directory
+- Forge MCP is one such host; substitute any MCP server that can expose a directory
   of `SKILL.md` files and the skills behave the same.
 
 ---

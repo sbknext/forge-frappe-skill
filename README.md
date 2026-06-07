@@ -1,7 +1,7 @@
 # forge-frappe-skill
 
 Production-grade **Agent Skills for Frappe / ERPNext** — for Claude Code, any `npx skills`-compatible
-agent, Brain MCP, or plain markdown use. Two layers:
+agent, Forge MCP, or plain markdown use. Two layers:
 
 1. **Core skills** (repo root) — 11 focused, community-safe, *installable* playbooks. Hand-authored, generic, no lock-in.
 2. **Reference corpus** (`skills/`) — 471 granular, curated skills (Frappe + Engineering + everyday-ops) aggregated from public OSS sources for deep lookups.
@@ -38,7 +38,7 @@ These 11 are original to this repo (community-safe, no proprietary references) �
 
 ## Reference corpus (`skills/`)
 
-A deeper, granular library for lookups — usable **via Brain MCP** (or any MCP host that serves a skills
+A deeper, granular library for lookups — usable **via Forge MCP** (or any MCP host that serves a skills
 directory) **and standalone** (drop the `.md` files into any markdown-skill agent).
 
 ```
@@ -69,7 +69,7 @@ The core skills (root) are curated overviews; the corpus (`skills/`) is the deep
 ## Credit & attribution — please support upstream
 
 The **reference corpus** was assembled from public, openly-licensed sources, then curated + used in real
-Frappe work on a Brain MCP community hub over recent months:
+Frappe work on a Forge MCP community hub over recent months:
 
 | Source | Skills | What |
 |---|---|---|
