@@ -27,7 +27,7 @@ If your work is represented here and you'd like different attribution (or remova
 
 ```
 skills/
-├── frappe/        (352)  DocTypes, controllers, hooks, APIs, Query Builder, permissions,
+├── frappe/        (365)  DocTypes, controllers, hooks, APIs, Query Builder, permissions,
 │                          reports, print formats, Vue/Frappe UI, web forms, testing, ops
 ├── engineering/   (28)   language-agnostic engineering safety + patterns
 ├── health-yoga/   (48)   generic Ayurveda / wellness / yoga routines
