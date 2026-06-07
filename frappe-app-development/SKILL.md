@@ -3,16 +3,16 @@ name: frappe-app-development
 description: >
   Scaffold, architect, and build production-grade custom Frappe/ERPNext apps. Covers app structure,
   DocType design, hooks.py configuration, background jobs, service layers, REST APIs, permissions,
-  and ElasticRun-specific patterns. Use when creating a new Frappe app, adding a module, setting up
-  scheduler events, implementing doc_events, writing whitelisted APIs, or debugging Frappe-specific
-  issues. Trigger on: "banao Frappe app", "DocType banana hai", "hook lagao", "background job", "frappe.enqueue",
-  "whitelist API", "custom app scaffold", "frappe new app".
+  and testing. Use when creating a new Frappe app, adding a module, setting up scheduler events,
+  implementing doc_events, writing whitelisted APIs, or debugging Frappe-specific issues.
+  Trigger on: "create Frappe app", "new DocType", "add a hook", "background job", "frappe.enqueue",
+  "whitelist API", "custom app scaffold", "bench new-app".
 ---
 
 # Frappe App Development
 
 Scaffold and build production-grade custom Frappe / ERPNext applications with correct separation of
-concerns, tested patterns, and ElasticRun-grade guardrails.
+concerns and tested patterns.
 
 ## When to use
 
@@ -32,7 +32,7 @@ concerns, tested patterns, and ElasticRun-grade guardrails.
 - App name and purpose
 - Target Frappe version (v14, v15, v16+)
 - Module structure (which DocTypes, which APIs)
-- Site name (e.g., `withrun.saas`, `beta-logi-libera.elasticrun.in`)
+- Site name
 
 ## Core patterns
 
@@ -52,9 +52,9 @@ bench --site <site> install-app <app_name>
 ```python
 # doc_events — thin controller, delegate to service
 doc_events = {
-    "Purchase Order": {
-        "on_submit": "myapp.services.po_sync.on_po_submit",
-        "on_cancel": "myapp.services.po_sync.on_po_cancel",
+    "Sales Order": {
+        "on_submit": "myapp.services.order_sync.on_submit",
+        "on_cancel": "myapp.services.order_sync.on_cancel",
     }
 }
 
@@ -62,7 +62,7 @@ doc_events = {
 scheduler_events = {
     "daily": ["myapp.tasks.daily_sync.run"],
     "cron": {
-        "0 */2 * * *": ["myapp.tasks.po_monitor.run"],  # every 2h
+        "0 */2 * * *": ["myapp.tasks.monitor.run"],  # every 2h
     }
 }
 
@@ -77,8 +77,8 @@ override_whitelisted_methods = {
 myapp/
   myapp/
     services/
-      po_sync.py      ← business logic (no frappe.form refs)
-      zoho_client.py  ← external API wrapper
+      order_sync.py   ← business logic (no frappe.form refs)
+      external_api.py ← external API wrapper
     api/
       v1.py           ← @frappe.whitelist() endpoints (thin)
     utils/
@@ -92,19 +92,19 @@ myapp/
 ```python
 # Enqueue (fire and forget)
 frappe.enqueue(
-    "myapp.services.po_sync.sync_po",
-    po_name=po.name,
+    "myapp.services.order_sync.sync_order",
+    order_name=doc.name,
     queue="long",       # short / default / long
     timeout=1800,
-    job_id=f"sync_po_{po.name}",  # dedup key
+    job_id=f"sync_order_{doc.name}",  # dedup key
     is_async=True,
 )
 
 # Inside the job — always log, never raise silently
-def sync_po(po_name):
-    logger = frappe.logger("po_sync", allow_site=True)
+def sync_order(order_name):
+    logger = frappe.logger("order_sync", allow_site=True)
     try:
-        po = frappe.get_doc("Purchase Order", po_name)
+        doc = frappe.get_doc("Sales Order", order_name)
         # ... work ...
         frappe.db.commit()
     except Exception:
@@ -117,23 +117,23 @@ def sync_po(po_name):
 import frappe
 
 @frappe.whitelist()
-def get_po_status(po_name: str) -> dict:
-    frappe.has_permission("Purchase Order", "read", po_name, throw=True)
-    po = frappe.get_doc("Purchase Order", po_name)
+def get_order_status(order_name: str) -> dict:
+    frappe.has_permission("Sales Order", "read", order_name, throw=True)
+    doc = frappe.get_doc("Sales Order", order_name)
     return {
-        "name": po.name,
-        "status": po.status,
-        "supplier": po.supplier,
+        "name": doc.name,
+        "status": doc.status,
+        "customer": doc.customer,
     }
 ```
 
 ### 7. Caching
 ```python
 # Per-site, TTL in seconds
-cache_key = f"myapp:po_config:{frappe.local.site}"
+cache_key = f"myapp:config:{frappe.local.site}"
 config = frappe.cache().get_value(cache_key)
 if not config:
-    config = frappe.get_single("My App Settings").__dict__
+    config = frappe.get_single("My App Settings").as_dict()
     frappe.cache().set_value(cache_key, config, expires_in_sec=300)
 ```
 
@@ -143,7 +143,7 @@ if not config:
 frappe.only_for(["System Manager", "My App Manager"])
 
 # Document-level
-frappe.has_permission("Purchase Order", "write", po_name, throw=True)
+frappe.has_permission("Sales Order", "write", order_name, throw=True)
 ```
 
 ### 9. Tests
@@ -151,21 +151,20 @@ frappe.has_permission("Purchase Order", "write", po_name, throw=True)
 import frappe
 from frappe.tests.utils import FrappeTestCase
 
-class TestPOSync(FrappeTestCase):
-    def test_sync_creates_zoho_entry(self):
-        po = frappe.get_doc({
-            "doctype": "Purchase Order",
-            "supplier": "Test Supplier",
+class TestOrderSync(FrappeTestCase):
+    def test_sync_sets_status(self):
+        doc = frappe.get_doc({
+            "doctype": "Sales Order",
+            "customer": "Test Customer",
             # ...
         }).insert()
-        result = sync_po(po.name)
+        result = sync_order(doc.name)
         self.assertEqual(result["status"], "Synced")
 ```
 
 ### 10. Migrations (safe)
 ```bash
-# Always dry-run before apply
-bench --site <site> migrate --dry-run
+# Run migrate after every schema change
 bench --site <site> migrate
 bench build --app <app_name>
 ```
@@ -173,16 +172,15 @@ bench build --app <app_name>
 ## Security guardrails (HARD RULES)
 
 - **NEVER** `frappe.db.sql("... WHERE name = '%s'" % name)` — use `%s` params
-- **NEVER** disable CSRF (`frappe.flags.ignore_csrf = True` in prod)
+- **NEVER** disable CSRF (`frappe.flags.ignore_csrf = True`) in production
 - **NEVER** store secrets in DocType fields — use `site_config.json` + `frappe.conf.get()`
 - **ALWAYS** validate file uploads (type, size, extension) before save
 - **ALWAYS** use `frappe.only_for()` or `frappe.has_permission()` on sensitive APIs
-- **ALWAYS** run `bench --site <site> migrate` after schema changes — never touch DB directly
+- **ALWAYS** run `bench --site <site> migrate` after schema changes — never touch the DB directly
 
-## ElasticRun-specific notes
+## Production patterns
 
-- Use `frappe.enqueue` with `job_id` for dedup on high-frequency events (PO submit, spine events)
-- Spine/Kafka events hook via `frappe-spine` — don't write raw Kafka consumers in app hooks
-- PowerFlow-based workflows → use `frappe-latte` Powerflow engine, not frappe.workflow directly
-- Multi-site bench: always specify `--site <site>` in bench commands
-- For ERPNext extensions use `epatch` conventions — `extend_doctype_class` pattern for v16+
+- Use `frappe.enqueue` with `job_id` for dedup on high-frequency events
+- Keep app hooks thin — delegate to a service layer that has no `frappe.form` references
+- Specify `--site <site>` explicitly in every bench command on multi-site benches
+- Prefer Frappe-native workflow + notification primitives over custom cron hacks
