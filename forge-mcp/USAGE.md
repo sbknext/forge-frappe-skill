@@ -3,7 +3,7 @@
 This guide explains how to consume the **Frappe Agent Skills** in this repo through
 an MCP-based AI coding assistant.
 
-> **Note:** **Forge MCP and Forge MCP are the same server** — "Brain" is the memory
+> **Note:** **Forge MCP and Brain MCP are the same server** — "Brain" is the memory
 > engine, "Forge" is the suite name; they refer to one and the same MCP. Hosted at
 > **http://mcp.sbknext.com**.
 
