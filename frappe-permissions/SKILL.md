@@ -45,10 +45,15 @@ def so_conditions(user):
         return ""                                  # see all
     return f"`tabSales Order`.owner = {frappe.db.escape(user)}"
 
-def so_has_permission(doc, user):
-    return doc.owner == user or "Sales Manager" in frappe.get_roles(user)
+def so_has_permission(doc, ptype, user=None):
+    user = user or frappe.session.user
+    if ptype == "read" and doc.event_type == "Public":
+        return True
+    if ptype == "write" and doc.owner == user:
+        return True
+    return False  # None falls back to default DocType perms
 ```
-`so_conditions` filters lists/reports; `so_has_permission` guards single-doc access — implement both.
+`so_conditions` filters lists/reports; `so_has_permission` guards single-doc access — implement both. The hook receives `permission_type` (`read`, `write`, `submit`, etc.).
 
 ## 5. In code
 
@@ -59,6 +64,15 @@ if frappe.has_permission("Sales Order", "submit", doc):
     ...
 roles = frappe.get_roles(frappe.session.user)
 ```
+
+## Automatic roles (v15+)
+
+| Role | Scope |
+|---|---|
+| Guest | Everyone, including unauthenticated |
+| All | All registered users (incl. website users) |
+| Administrator | Only the default Administrator user |
+| Desk User | System Users only (not website users) — new in v15 |
 
 ## 6. Share (ad-hoc)
 
@@ -73,3 +87,8 @@ frappe.share.add("Sales Order", "SO-0001", "user@x", write=1, notify=1)
 - Don't gate purely in client JS — always enforce server-side; JS is a UX hint only.
 - Prefer User Permissions for "scope by master" needs before writing query-condition code.
 - Test permissions as the target user: `frappe.set_user("clerk@x")` in tests, then assert.
+
+## From Frappe docs
+
+- `permission_query_conditions` and `has_permission` hooks: https://docs.frappe.io/framework/user/en/python-api/hooks
+- `doc.check_permission(permtype)` on Document instances: https://docs.frappe.io/framework/user/en/api/document

@@ -96,7 +96,36 @@ app_include_css = ["/assets/myapp/css/custom.css"]
 boot_session    = "myapp.boot.extend_boot"     # add data to frappe.boot
 jenv = {"methods": ["fmt:myapp.utils.fmt"]}    # custom jinja filters/methods
 fixtures = ["Custom Field", {"dt": "Role", "filters": [["name", "in", ["My Role"]]]}]
+
+# Jinja methods/filters for print formats & web templates
+jinja = {
+    "methods": ["myapp.jinja.methods", "myapp.utils.get_fullname"],
+    "filters": ["myapp.jinja.filters", "myapp.utils.format_currency"],
+}
+
+# Standard Web Form assets (Standard Web Forms only)
+webform_include_js  = {"ToDo": "public/js/custom_todo.js"}
+webform_include_css = {"ToDo": "public/css/custom_todo.css"}
 ```
+
+## Scheduler event types (official)
+
+Beyond `all`/`hourly`/`daily`/`weekly`/`monthly`, Frappe provides `_long` variants that run on the long worker:
+
+```python
+scheduler_events = {
+    "daily_long": ["myapp.tasks.take_backups_daily"],
+    "cron": {"0 2 * * *": ["myapp.tasks.nightly"]},
+}
+```
+
+After changing `scheduler_events`, run `bench --site <site> migrate` for changes to take effect.
+
+For user-configurable intervals, create `Scheduler Event` + `Scheduled Job Type` records (no hook required).
+
+## Hook resolution
+
+Hooks cascade across installed apps — `frappe.get_hooks()` collects values from all apps. Conflicting overrides use **last installed app wins**; reorder via Installed Applications → Update Hooks Resolution Order.
 
 ## Rules
 
@@ -104,3 +133,8 @@ fixtures = ["Custom Field", {"dt": "Role", "filters": [["name", "in", ["My Role"
 - After editing `hooks.py`, run `bench --site <site> migrate` (or `bench build` for assets).
 - `"*"` doc_events fire on every save — keep them cheap.
 - Never monkey-patch core in `hooks.py`; use `override_doctype_class` / overrides instead.
+
+## From Frappe docs
+
+- Full hooks reference (`permission_query_conditions`, `has_permission`, assets, install): https://docs.frappe.io/framework/user/en/python-api/hooks
+- Background jobs + scheduler events: https://docs.frappe.io/framework/user/en/api/background_jobs

@@ -78,6 +78,18 @@ settings = frappe.get_single("My App Settings")
 threshold = settings.threshold
 ```
 
+## DocField visibility and validation (v12+)
+
+Beyond `depends_on` (show/hide), Frappe supports conditional mandatory and read-only:
+
+```json
+{ "fieldname": "reason", "depends_on": "eval:doc.status=='Rejected'" }
+{ "fieldname": "reason", "mandatory_depends_on": "eval:doc.status=='Rejected'" }
+{ "fieldname": "approved_by", "read_only_depends_on": "eval:doc.docstatus==1" }
+```
+
+Use `eval:` expressions referencing `doc` — same pattern as client-side `frm.toggle_reqd`, but defined in DocType JSON.
+
 ## Design rules
 
 - Don't over-Select; if options change at runtime, use a `Link` to a master DocType.
@@ -86,3 +98,11 @@ threshold = settings.threshold
 - Set `track_changes: 1` for audit on important DocTypes.
 - Use `Dynamic Link` only when the target DocType genuinely varies; otherwise a plain `Link`.
 - Mark mirror fields `read_only` + `fetch_from` instead of copying in code.
+
+## From Frappe docs
+
+- DocType conventions (singular names, `tab` prefix, meta-as-data): https://docs.frappe.io/framework/user/en/basics/doctypes
+- DocField properties (`depends_on`, `mandatory_depends_on`, `read_only_depends_on`): https://docs.frappe.io/framework/user/en/basics/doctypes/docfield
+- Child table properties (`parent`, `parenttype`, `parentfield`, `idx`): https://docs.frappe.io/framework/user/en/basics/doctypes/child-doctype
+- Single DocTypes stored in `tabSingles`: https://docs.frappe.io/framework/user/en/basics/doctypes/single-doctype
+- Developer mode + DocType boilerplate export: https://docs.frappe.io/framework/user/en/tutorial/create-a-doctype

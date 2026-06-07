@@ -169,6 +169,40 @@ bench --site <site> migrate
 bench build --app <app_name>
 ```
 
+### 11. Controller hooks and v15 type annotations
+
+Frappe auto-generates Python type stubs in controllers (v15+). Enable with:
+
+```python
+# hooks.py
+export_python_type_annotations = True
+```
+
+The generated block between `# begin: auto-generated types` / `# end: auto-generated types` is overwritten on DocType update — put custom logic outside it.
+
+Key lifecycle hooks: `before_validate` (set defaults), `validate` (throw to block save), `before_save`, `on_update`, `on_submit`, `on_cancel`, `on_change` (also fires on `db_set` — keep idempotent).
+
+`doc.insert()` / `doc.save()` escape hatches (use sparingly, never in user-facing paths without audit):
+
+```python
+doc.insert(ignore_permissions=True, ignore_links=True, ignore_mandatory=True)
+doc.save(ignore_permissions=True, ignore_version=True)
+doc.db_set("status", "Closed")  # skips validate/hooks — prefer doc.save()
+```
+
+## Controller hooks & v15 type annotations
+
+Put lifecycle logic in the DocType controller (`before_save`, `validate`, `on_submit`, etc.) — see the full hook matrix in the Controllers docs. Prefer controller methods over inline `hooks.py` doc_events when logic belongs to one DocType.
+
+v15+ can auto-export Python type annotations in controllers:
+
+```python
+# hooks.py
+export_python_type_annotations = True
+```
+
+Annotations regenerate on DocType update — do not hand-edit the auto-generated block.
+
 ## Security guardrails (HARD RULES)
 
 - **NEVER** `frappe.db.sql("... WHERE name = '%s'" % name)` — use `%s` params
@@ -184,3 +218,10 @@ bench build --app <app_name>
 - Keep app hooks thin — delegate to a service layer that has no `frappe.form` references
 - Specify `--site <site>` explicitly in every bench command on multi-site benches
 - Prefer Frappe-native workflow + notification primitives over custom cron hacks
+
+## From Frappe docs
+
+- Controller hooks table (insert/save/submit/cancel columns): https://docs.frappe.io/framework/user/en/basics/doctypes/controllers
+- Document API (`insert`, `save`, `db_set`, `queue_action`): https://docs.frappe.io/framework/user/en/api/document
+- Tutorial — developer mode + DocType boilerplate: https://docs.frappe.io/framework/user/en/tutorial/create-a-doctype
+- Controller methods tutorial (`before_save` example): https://docs.frappe.io/framework/user/en/tutorial/controller-methods

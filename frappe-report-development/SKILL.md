@@ -81,3 +81,6 @@ frappe.query_reports["Order Summary"] = {
 - Heavy aggregations → add indexes, or precompute into a summary DocType refreshed by a scheduler job.
 - Return a `chart` dict for a built-in visualization; `report_summary` for top KPI cards.
 - For huge exports, prefer a background job writing a file over a synchronous report run.
+- Report print formats: drop `{report_name}.html` beside the report `.py`/`.js` — client-side microtemplating (not Jinja); data available as `data`, `filters`, `report`.
+
+Source: https://docs.frappe.io/framework/user/en/desk/printing , https://docs.frappe.io/framework/user/en/guides/reports-and-printing/print-format-for-reports

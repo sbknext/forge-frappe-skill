@@ -43,7 +43,7 @@ directory) **and standalone** (drop the `.md` files into any markdown-skill agen
 
 ```
 skills/
-├── frappe/        (365)  DocTypes, controllers, hooks, APIs, Query Builder, permissions,
+├── frappe/        (368)  DocTypes, controllers, hooks, APIs, Query Builder, permissions,
 │                          reports, print formats, Vue/Frappe UI, web forms, testing, ops
 ├── engineering/   (28)   language-agnostic engineering safety + patterns
 ├── health-yoga/   (48)   generic Ayurveda / wellness / yoga routines
@@ -57,7 +57,7 @@ Full catalog with tags: **[INDEX.md](INDEX.md)**. Each corpus file:
 title: <human title>
 category: <folder>
 tags: [..]
-source: <Impertio | lubus | Frappe community | netchampfaris>
+source: <Impertio | lubus | Frappe docs | Frappe community | netchampfaris>
 ---
 <markdown body>
 ```

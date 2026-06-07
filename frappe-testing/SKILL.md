@@ -70,8 +70,10 @@ bench --site <site> run-tests --app myapp
 bench --site <site> run-tests --doctype "Widget"
 bench --site <site> run-tests --module myapp.tests.test_sync
 bench --site <site> run-tests --app myapp --coverage
+bench --site <site> run-tests --skip-test-records --skip-before-tests   # fast iteration
+bench --site <site> run-tests --junit-xml-output=/tmp/junit.xml         # CI output
 ```
-Enable a test site: `bench --site <site> set-config allow_tests true`.
+Enable a test site: `bench --site <site> set-config allow_tests true`. Tests must run on a site whose name starts with `test_` to prevent accidental data loss on production sites.
 
 ## Rules
 
@@ -80,3 +82,5 @@ Enable a test site: `bench --site <site> set-config allow_tests true`.
 - Make tests independent — don't rely on records another test created (savepoints roll back).
 - For background jobs, call the method synchronously (`is_async=False`) or invoke the function directly.
 - Assert behaviour and side-effects (DB rows, status), not implementation details.
+
+Source: https://docs.frappe.io/framework/user/en/guides/automated-testing/unit-testing

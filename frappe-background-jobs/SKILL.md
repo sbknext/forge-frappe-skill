@@ -56,6 +56,22 @@ frappe.publish_progress(percent=40, title="Syncing", description="40 / 100")
 frappe.publish_realtime("sync_done", {"name": doc_name}, user=frappe.session.user)
 ```
 
+## Custom queues and workers
+
+Add queues in `common_site_config.json`:
+
+```json
+{ "workers": { "myqueue": { "timeout": 5000, "background_workers": 4 } } }
+```
+
+Run multi-queue workers: `bench worker --queue short,default`. Burst mode for cron spikes: `bench worker --queue short --burst`.
+
+## Scheduler-owned jobs
+
+Jobs triggered by the scheduler run as **Administrator** — documents created inherit Administrator as owner unless you set `owner` explicitly.
+
+Configurable intervals: create `Scheduler Event` + `Scheduled Job Type` (Cron) records instead of hard-coding cron in hooks.
+
 ## Patterns & rules
 
 - **Always set `job_id` + `deduplicate=True`** for jobs triggered by high-frequency events (on_submit, webhooks) — prevents pile-ups.
@@ -65,3 +81,8 @@ frappe.publish_realtime("sync_done", {"name": doc_name}, user=frappe.session.use
 - Make jobs **idempotent** (safe to retry) — RQ may re-run on failure.
 - Inspect: `bench --site <site> worker` (run), and the RQ jobs at `/app/rq-job`.
 - Don't pass whole `doc` objects as kwargs — pass `name` and re-fetch inside the job.
+
+## From Frappe docs
+
+- `frappe.enqueue` / `frappe.enqueue_doc` arguments, queues, workers: https://docs.frappe.io/framework/user/en/api/background_jobs
+- After changing `scheduler_events` in `hooks.py`, run `bench --site <site> migrate` for changes to take effect.

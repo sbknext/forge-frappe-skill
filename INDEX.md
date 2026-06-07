@@ -1,15 +1,16 @@
 # forge-frappe-skill — Catalog
 
 
-Sources per file in `source:` frontmatter (Impertio · lubus · Frappe community · netchampfaris). See [README](README.md).
+Sources per file in `source:` frontmatter (Impertio · lubus · Frappe docs · Frappe community · netchampfaris). See [README](README.md).
 
-**471 skills** across 5 categories.
+**474 skills** across 5 categories.
 
 
-## Frappe (365)
+## Frappe (368)
 
 | Skill | Source | Tags |
 |---|---|---|
+| [Frappe Ref — DocType Actions and Links (Frappe docs)](skills/frappe/doctype-actions-links.md) | Frappe docs |  |
 | [Frappe Agent — Openai (Impertio)](skills/frappe/frappe-agent-openai-impertio.md) | Impertio |  |
 | [Frappe Ref — App Shell UX Patterns (lubus)](skills/frappe/frappe-ref-app-shell-ux-patterns-lubus.md) | lubus |  |
 | [Frappe Ref — Custom API Rate Limiting (lubus)](skills/frappe/frappe-ref-custom-api-rate-limiting-lubus.md) | lubus |  |
@@ -375,6 +376,8 @@ Sources per file in `source:` frontmatter (Impertio · lubus · Frappe community
 | [Frappe Skill — Requirements (Impertio)](skills/frappe/frappe-skill-requirements-impertio.md) | Impertio |  |
 | [Frappe Skill — Roadmap (Impertio)](skills/frappe/frappe-skill-roadmap-impertio.md) | Impertio |  |
 | [Frappe Skill — Security Guide (Impertio)](skills/frappe/frappe-skill-security-guide-impertio.md) | Impertio |  |
+| [Frappe Ref — Web Form (Frappe docs)](skills/frappe/frappe-web-form.md) | Frappe docs |  |
+| [Frappe Ref — Virtual DocType (Frappe docs)](skills/frappe/virtual-doctype.md) | Frappe docs |  |
 
 ## Engineering (28)
 

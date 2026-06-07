@@ -47,6 +47,23 @@ frappe.ui.form.on("Sales Order Item", {
 frm.set_query("item_code", "items", () => ({
     filters: { is_sales_item: 1, disabled: 0 },
 }));
+
+// Server-side query method (for complex filters)
+frm.set_query("item_code", "items", () => ({
+    query: "myapp.queries.item_query",
+    filters: { is_sales_item: 1 },
+}));
+```
+
+Server query methods must be `@frappe.whitelist()` and decorated with `@frappe.validate_and_sanitize_search_inputs` to prevent SQL injection:
+
+```python
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def item_query(doctype, txt, searchfield, start, page_len, filters):
+    return frappe.db.sql("""SELECT name FROM `tabItem`
+        WHERE name LIKE %(txt)s LIMIT %(page_len)s""",
+        {"txt": f"%{txt}%", "page_len": page_len})
 ```
 
 ## Field control at runtime
@@ -90,3 +107,7 @@ frappe.listview_settings["Sales Order"] = {
 - Prefer `frappe.model.set_value` for child rows; mutating `locals` directly won't refresh the grid.
 - Don't put secrets or privileged logic in client scripts — they're shipped to the browser.
 - Ship reusable logic as an app JS file via `doctype_js` hook, not as DB "Client Script" records, for versioning.
+
+## From Frappe docs
+
+- Server-side link query override (`set_query` + custom method): https://docs.frappe.io/framework/user/en/guides/app-development/overriding-link-query-by-custom-script

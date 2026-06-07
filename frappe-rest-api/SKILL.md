@@ -23,6 +23,13 @@ DELETE /api/resource/Sales Order/SO-0001          # delete
 
 # filters / fields / paging
 GET /api/resource/Sales Order?filters=[["status","=","Draft"]]&fields=["name","customer"]&limit_page_length=20
+
+# expand linked fields in list/read responses
+GET /api/resource/Sales Order?expand=["customer"]
+GET /api/resource/Sales Order/SO-0001?expand_links=True
+
+# debug: returns executed SQL under exc in payload
+GET /api/resource/Sales Order?debug=True
 ```
 
 ## Custom RPC — /api/method
@@ -54,6 +61,10 @@ curl -H "Authorization: token KEY:SECRET" \
 ```
 Session auth (browser): login at `/api/method/login` → cookie `sid` + `X-Frappe-CSRF-Token` for writes.
 
+OAuth: pass `Authorization: Bearer <access_token>` (see OAuth setup docs).
+
+Remote methods: use `GET` when the method only reads; use `POST` when it mutates DB (framework auto-commits on successful POST).
+
 ## File upload
 
 ```bash
@@ -75,3 +86,5 @@ curl -H "Authorization: token KEY:SECRET" \
 - Return plain JSON-serializable dicts/lists, not `Document` objects.
 - Use `frappe.get_all` (ignores user perms, fast) vs `frappe.get_list` (applies user perms) deliberately.
 - Never accept a raw SQL fragment or `fields`/`filters` you don't validate from untrusted callers.
+
+Source: https://docs.frappe.io/framework/user/en/api/rest

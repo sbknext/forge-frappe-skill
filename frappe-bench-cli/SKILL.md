@@ -13,10 +13,18 @@ description: >
 `bench` is the command-line tool that manages Frappe sites and apps. On a multi-site bench, **always
 pass `--site <site>`**.
 
+## Bench init & directory layout
+
+```bash
+bench init frappe-bench    # creates env/, apps/, sites/, config/, logs/
+cd frappe-bench && bench start   # web :8000 + redis + workers + scheduler
+```
+
 ## Sites & apps
 
 ```bash
 bench new-site mysite.localhost                       # create a site
+bench --site mysite.localhost add-to-hosts            # map site hostname → 127.0.0.1
 bench --site mysite.localhost install-app myapp       # install an app on it
 bench --site mysite.localhost uninstall-app myapp
 bench get-app https://github.com/org/myapp            # fetch an app into the bench
@@ -80,3 +88,5 @@ bench update --patch            # pull + migrate (be careful in prod; backup fir
 - After editing `hooks.py`, DocType JSON, or patches: `bench --site <site> migrate`.
 - After editing JS/CSS: `bench build` (use `bench build --app myapp` to scope it).
 - Don't run `bench update` blindly on prod — pin app versions and test on staging first.
+
+Source: https://docs.frappe.io/framework/user/en/tutorial , https://docs.frappe.io/framework/user/en/tutorial/create-a-site
