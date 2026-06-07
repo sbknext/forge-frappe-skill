@@ -1,29 +1,45 @@
 # forge-frappe-skill
 
-**A curated, categorized library of 471 agent-skills** — Frappe-focused, plus Engineering, Health/Yoga, Productivity, and Life-Ops. Each skill is a self-contained Markdown file (frontmatter + body) that any AI coding assistant can load to do real work — write idiomatic Frappe code (DocTypes, hooks, Query Builder, permissions, REST/RPC APIs, reports, Vue frontends, testing, ops) or follow a practical routine — instead of guessing.
+Production-grade **Agent Skills for Frappe / ERPNext** — for Claude Code, any `npx skills`-compatible
+agent, Brain MCP, or plain markdown use. Two layers:
 
-Usable **via Brain MCP** (or any MCP host that serves a skills directory) **and standalone** — drop the `.md` files into any agent that reads Markdown skills (Claude Code, Cursor, or a plain prompt).
+1. **Core skills** (repo root) — 11 focused, community-safe, *installable* playbooks. Hand-authored, generic, no lock-in.
+2. **Reference corpus** (`skills/`) — 471 granular, curated skills (Frappe + Engineering + everyday-ops) aggregated from public OSS sources for deep lookups.
 
-> **This repo is a curation + aggregation, not original authorship.** The bulk of the technical knowledge here was written by others (see **Credit** below). What this project adds is selection, a clean domain taxonomy, consistent frontmatter, de-duplication, and packaging for agent consumption.
-
----
-
-## Credit & attribution — please support upstream
-
-This library was assembled from public, openly-licensed sources, then curated and used in real Frappe work on a Brain MCP community hub over recent months. The real provenance (from each skill's `source:` frontmatter):
-
-| Source | Skills | What |
-|---|---|---|
-| **[Impertio-Studio/frappe-skills](https://github.com/Impertio-Studio/frappe-skills)** (MIT) | 333 | The largest source — a deterministic set of Frappe Framework & ERPNext development/operations skills. **Thank you, Impertio Studio — go star the upstream.** |
-| **Frappe community + [official Frappe docs](https://docs.frappe.io)** | 124 | Public Frappe Framework documentation + community knowledge, distilled into skills. |
-| **[lubusIN/frappe-skills](https://github.com/lubusIN/frappe-skills)** (MIT, © lubus) | 13 | Net-new depth — Frappe Manager (fm), frappe-ui SPA/UX patterns, SLA + enterprise app architecture, custom API rate-limiting. **Thank you, lubus — go star the upstream.** |
-| **[netchampfaris](https://github.com/netchampfaris)** | 1 | Frappe core contributor — entry-point skill. |
-
-If your work is represented here and you'd like different attribution (or removal), open an issue — happy to fix.
+> Curation + aggregation, not original authorship of the corpus — see **Credit** below.
 
 ---
 
-## Categories
+## Install a core skill
+
+```bash
+npx skills add https://github.com/sbknext/forge-frappe-skill/frappe-app-development
+```
+
+### Core skills (root, installable)
+
+| Skill | What it covers |
+|---|---|
+| **frappe-app-development** | Scaffold & architect custom apps — structure, hooks, jobs, service layer, APIs |
+| **frappe-doctype-design** | Field types, naming series, child tables, links, Single doctypes, `fetch_from` |
+| **frappe-hooks** | `hooks.py` — doc_events, scheduler_events, overrides, permission query conditions |
+| **frappe-background-jobs** | `frappe.enqueue`, RQ, queues, timeouts, job dedup, progress, idempotency |
+| **frappe-rest-api** | `@frappe.whitelist`, `/api/resource` & `/api/method`, token/session auth, uploads |
+| **frappe-permissions** | Roles, perm levels, user permissions, row-level security, `has_permission` |
+| **frappe-database-orm** | `get_all`/`get_list`, parameterized SQL, Query Builder, transactions, performance |
+| **frappe-client-scripting** | `frappe.ui.form.on`, field events, `set_query`, custom buttons, list settings |
+| **frappe-report-development** | Query & Script reports, filters, columns, charts, formatters |
+| **frappe-bench-cli** | Site/app management, migrate, build, backup/restore, scheduler, console, config |
+| **frappe-testing** | Unit + integration tests, fixtures, CI |
+
+These 11 are original to this repo (community-safe, no proprietary references) — the clean, installable face.
+
+---
+
+## Reference corpus (`skills/`)
+
+A deeper, granular library for lookups — usable **via Brain MCP** (or any MCP host that serves a skills
+directory) **and standalone** (drop the `.md` files into any markdown-skill agent).
 
 ```
 skills/
@@ -35,42 +51,51 @@ skills/
 └── life-ops/      (15)   personal life-admin checklists
 ```
 
-Frappe + Engineering are the primary focus; the rest are bonus everyday-ops skills. Full catalog with tags + descriptions: see **[INDEX.md](INDEX.md)**.
-
-Each skill file:
+Full catalog with tags: **[INDEX.md](INDEX.md)**. Each corpus file:
 ```
 ---
 title: <human title>
 category: <folder>
 tags: [..]
-source: <Impertio | Frappe community | lubus | netchampfaris>
+source: <Impertio | lubus | Frappe community | netchampfaris>
 ---
-<markdown body — when to use, procedure, references>
+<markdown body>
 ```
 
+The core skills (root) are curated overviews; the corpus (`skills/`) is the deep reference layer — complementary, not duplicates.
+
 ---
 
-## How to use
+## Credit & attribution — please support upstream
 
-**Standalone (no MCP):** clone the repo and point your agent at `skills/`. For Claude Code / Cursor, copy the relevant `skills/<category>/*.md` into your agent's skills directory, or paste a skill body into context for the task at hand.
+The **reference corpus** was assembled from public, openly-licensed sources, then curated + used in real
+Frappe work on a Brain MCP community hub over recent months:
 
-**Via Brain MCP / any MCP host:** serve the `skills/` directory through your MCP skills endpoint; the assistant discovers a skill by its `title` + `tags` and loads the body on demand. Start a Frappe task by letting the agent pick the matching `frappe/` skill. (Brain MCP is one consumer — these skills are MCP-agnostic.)
+| Source | Skills | What |
+|---|---|---|
+| **[Impertio-Studio/frappe-skills](https://github.com/Impertio-Studio/frappe-skills)** (MIT) | 333 | Largest source — deterministic Frappe/ERPNext dev + ops skills. **Star the upstream.** |
+| **Frappe community + [official Frappe docs](https://docs.frappe.io)** | 124 | Public Frappe docs + community knowledge (incl. the official [frappe/frappe-agent-skills](https://github.com/frappe/frappe-agent-skills) set). |
+| **[lubusIN/frappe-skills](https://github.com/lubusIN/frappe-skills)** (MIT, © lubus) | 13 | Net-new depth — Frappe Manager, frappe-ui patterns, SLA/enterprise architecture, rate-limiting. **Star the upstream.** |
+| **[netchampfaris](https://github.com/netchampfaris)** | 1 | Frappe core contributor — entry-point skill. |
+
+The **11 core skills** (root) are original to this repo. If your work is represented here and you'd like
+different attribution (or removal), open an issue — happy to fix.
 
 ---
 
 ## Contributing
 
-PRs welcome — add a `.md` skill under the right `skills/<category>/` folder using the frontmatter shape above. Rules:
+PRs welcome. Keep skills **generic + self-contained** — no company-specific sites, client names,
+credentials, or proprietary app references. Core skills live in their own root dir with a single
+`SKILL.md` (frontmatter `name` + `description`, then body). Corpus skills go under `skills/<category>/`
+with the frontmatter shape above. See **[PLAYBOOK.md](PLAYBOOK.md)** + **[MISTAKES.md](MISTAKES.md)**.
 
-- **No secrets, ever** — no API keys/tokens/passwords/real JWTs. Documentation placeholders only.
-- **No private/internal data** — no company hostnames, client names, real personal info.
-- **Frappe-accurate** — match the framework (v13–v15); note version-specific behavior.
-- **Credit your source** in the `source:` field.
-
-See **[PLAYBOOK.md](PLAYBOOK.md)** (authoring rules) and **[MISTAKES.md](MISTAKES.md)** (common Frappe pitfalls).
+Rules: no secrets ever · no private/internal data · Frappe-accurate (v13–v15) · credit your source.
 
 ---
 
 ## License
 
-**MIT** — see [LICENSE](LICENSE). This curation preserves the licensing of its upstream sources (Impertio-Studio/frappe-skills + lubusIN/frappe-skills are MIT). Skills sourced from Frappe documentation/community remain under their original terms. If any attribution is incorrect, open an issue.
+**MIT** — see [LICENSE](LICENSE). Preserves upstream licensing (Impertio-Studio/frappe-skills +
+lubusIN/frappe-skills are MIT; Frappe docs/community under their original terms). If any attribution is
+incorrect, open an issue.
