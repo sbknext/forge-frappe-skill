@@ -4,7 +4,7 @@ Production-grade **Agent Skills for Frappe / ERPNext** — for Claude Code, any 
 agent, Forge MCP, or plain markdown use. Two layers:
 
 1. **Core skills** (repo root) — 11 focused, community-safe, *installable* playbooks. Hand-authored, generic, no lock-in.
-2. **Reference corpus** (`skills/`) — 471 granular, curated skills (Frappe + Engineering + everyday-ops) aggregated from public OSS sources for deep lookups.
+2. **Reference corpus** (`skills/`) — 480 granular, curated skills (Frappe + Engineering + everyday-ops) aggregated from public OSS sources for deep lookups.
 
 > Curation + aggregation, not original authorship of the corpus — see **Credit** below.
 
@@ -43,7 +43,7 @@ directory) **and standalone** (drop the `.md` files into any markdown-skill agen
 
 ```
 skills/
-├── frappe/        (368)  DocTypes, controllers, hooks, APIs, Query Builder, permissions,
+├── frappe/        (377)  DocTypes, controllers, hooks, APIs, Query Builder, permissions,
 │                          reports, print formats, Vue/Frappe UI, web forms, testing, ops
 ├── engineering/   (28)   language-agnostic engineering safety + patterns
 ├── health-yoga/   (48)   generic Ayurveda / wellness / yoga routines
@@ -77,6 +77,8 @@ Frappe work on a Forge MCP community hub over recent months:
 | **Frappe community + [official Frappe docs](https://docs.frappe.io)** | 124 | Public Frappe docs + community knowledge (incl. the official [frappe/frappe-agent-skills](https://github.com/frappe/frappe-agent-skills) set). |
 | **[lubusIN/frappe-skills](https://github.com/lubusIN/frappe-skills)** (MIT, © lubus) | 13 | Net-new depth — Frappe Manager, frappe-ui patterns, SLA/enterprise architecture, rate-limiting. **Star the upstream.** |
 | **[netchampfaris](https://github.com/netchampfaris)** | 1 | Frappe core contributor — entry-point skill. |
+| **[vyogotech/frappe-apps-manager](https://github.com/vyogotech/frappe-apps-manager)** | 8 | Net-new depth — desk branding, form layout, monkey patching, state machines, script-type decision trees, test planning, desk UX feedback, web-tool porting; realtime + client-script decision trees merged into existing refs/core skills. **Star the upstream.** |
+| **[Venkateshvenki404224/frappe-apps-manager](https://github.com/Venkateshvenki404224/frappe-apps-manager)** | 1 | DocType architecture planning (interview → reuse/extend/create → spec). **Star the upstream.** |
 
 The **11 core skills** (root) are original to this repo. If your work is represented here and you'd like
 different attribution (or removal), open an issue — happy to fix.

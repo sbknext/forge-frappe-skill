@@ -3,14 +3,23 @@
 
 Sources per file in `source:` frontmatter (Impertio · lubus · Frappe docs · Frappe community · netchampfaris). See [README](README.md).
 
-**474 skills** across 5 categories.
+**483 skills** across 5 categories.
 
 
-## Frappe (368)
+## Frappe (377)
 
 | Skill | Source | Tags |
 |---|---|---|
 | [Frappe Ref — DocType Actions and Links (Frappe docs)](skills/frappe/doctype-actions-links.md) | Frappe docs |  |
+| [Frappe Ref — Desk Branding & Theme (frappe-apps-manager)](skills/frappe/desk-branding.md) | vyogotech/frappe-apps-manager |  |
+| [Frappe Ref — DocType Architecture Planning (frappe-apps-manager)](skills/frappe/doctype-architect.md) | Venkateshvenki404224/frappe-apps-manager |  |
+| [Frappe Ref — Form Layout & Field Grouping (frappe-apps-manager)](skills/frappe/form-layout-optimizer.md) | vyogotech/frappe-apps-manager |  |
+| [Frappe Ref — Monkey Patching & Framework Overrides (frappe-apps-manager)](skills/frappe/monkey-patching-overrides.md) | vyogotech/frappe-apps-manager |  |
+| [Frappe Ref — Script Types & Customization Export (frappe-apps-manager)](skills/frappe/script-types-decision-tree.md) | vyogotech/frappe-apps-manager |  |
+| [Frappe Ref — Status State Machine Transitions (frappe-apps-manager)](skills/frappe/state-machine-transitions.md) | vyogotech/frappe-apps-manager |  |
+| [Frappe Ref — Test Planning & Manual Test Cases (frappe-apps-manager)](skills/frappe/test-planner.md) | vyogotech/frappe-apps-manager |  |
+| [Frappe Ref — Desk UX Feedback (Alerts, Progress, Dialogs) (frappe-apps-manager)](skills/frappe/ux-feedback-handler.md) | vyogotech/frappe-apps-manager |  |
+| [Frappe Ref — Integrating External Web Tools (frappe-apps-manager)](skills/frappe/web-tool-porter.md) | vyogotech/frappe-apps-manager |  |
 | [Frappe Agent — Openai (Impertio)](skills/frappe/frappe-agent-openai-impertio.md) | Impertio |  |
 | [Frappe Ref — App Shell UX Patterns (lubus)](skills/frappe/frappe-ref-app-shell-ux-patterns-lubus.md) | lubus |  |
 | [Frappe Ref — Custom API Rate Limiting (lubus)](skills/frappe/frappe-ref-custom-api-rate-limiting-lubus.md) | lubus |  |
