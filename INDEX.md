@@ -1,16 +1,19 @@
 # forge-frappe-skill — Catalog
 
 
-Curated agent-skills. Sources per file in `source:` frontmatter (Impertio · Frappe community · netchampfaris). See [README](README.md).
+Sources per file in `source:` frontmatter (Impertio · lubus · Frappe community · netchampfaris). See [README](README.md).
 
-**458 skills** across 5 categories.
+**471 skills** across 5 categories.
 
 
-## Frappe (352)
+## Frappe (365)
 
 | Skill | Source | Tags |
 |---|---|---|
 | [Frappe Agent — Openai (Impertio)](skills/frappe/frappe-agent-openai-impertio.md) | Impertio |  |
+| [Frappe Ref — App Shell UX Patterns (lubus)](skills/frappe/frappe-ref-app-shell-ux-patterns-lubus.md) | lubus |  |
+| [Frappe Ref — Custom API Rate Limiting (lubus)](skills/frappe/frappe-ref-custom-api-rate-limiting-lubus.md) | lubus |  |
+| [Frappe Ref — Enterprise App Patterns (lubus)](skills/frappe/frappe-ref-enterprise-app-patterns-lubus.md) | lubus |  |
 | [Frappe Ref — Frappe Agent: Architect: Decision Tree (Impertio)](skills/frappe/frappe-ref-frappe-agent-architect-decision-tree-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Agent: Architect: Examples (Impertio)](skills/frappe/frappe-ref-frappe-agent-architect-examples-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Agent: Architect: Workflow (Impertio)](skills/frappe/frappe-ref-frappe-agent-architect-workflow-impertio.md) | Impertio |  |
@@ -145,6 +148,10 @@ Curated agent-skills. Sources per file in `source:` frontmatter (Impertio · Fra
 | [Frappe Ref — Frappe Impl: Workspace: Anti Patterns (Impertio)](skills/frappe/frappe-ref-frappe-impl-workspace-anti-patterns-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Impl: Workspace: Shipping With App (Impertio)](skills/frappe/frappe-ref-frappe-impl-workspace-shipping-with-app-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Impl: Workspace: Workspace Components (Impertio)](skills/frappe/frappe-ref-frappe-impl-workspace-workspace-components-impertio.md) | Impertio |  |
+| [Frappe Ref — Frappe Manager Agent Workflow (lubus)](skills/frappe/frappe-ref-frappe-manager-agent-workflow-lubus.md) | lubus |  |
+| [Frappe Ref — Frappe Manager CLI Commands (lubus)](skills/frappe/frappe-ref-frappe-manager-cli-commands-lubus.md) | lubus |  |
+| [Frappe Ref — Frappe Manager Docker Config (lubus)](skills/frappe/frappe-ref-frappe-manager-docker-config-lubus.md) | lubus |  |
+| [Frappe Ref — Frappe Manager Overview (lubus)](skills/frappe/frappe-ref-frappe-manager-overview-lubus.md) | lubus |  |
 | [Frappe Ref — Frappe Ops: App Lifecycle: Anti Patterns (Impertio)](skills/frappe/frappe-ref-frappe-ops-app-lifecycle-anti-patterns-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Ops: App Lifecycle: Examples (Impertio)](skills/frappe/frappe-ref-frappe-ops-app-lifecycle-examples-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Ops: App Lifecycle: Module Workspace Shipping (Imp](skills/frappe/frappe-ref-frappe-ops-app-lifecycle-module-workspace-shipping-impertio.md) | Impertio |  |
@@ -274,6 +281,10 @@ Curated agent-skills. Sources per file in `source:` frontmatter (Impertio · Fra
 | [Frappe Ref — Frappe Testing: Unit: Api Reference (Impertio)](skills/frappe/frappe-ref-frappe-testing-unit-api-reference-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Testing: Unit: Examples (Impertio)](skills/frappe/frappe-ref-frappe-testing-unit-examples-impertio.md) | Impertio |  |
 | [Frappe Ref — Frappe Testing: Unit: Fixtures (Impertio)](skills/frappe/frappe-ref-frappe-testing-unit-fixtures-impertio.md) | Impertio |  |
+| [Frappe Ref — frappe-ui Component Patterns (lubus)](skills/frappe/frappe-ref-frappe-ui-component-patterns-lubus.md) | lubus |  |
+| [Frappe Ref — frappe-ui SPA Library (lubus)](skills/frappe/frappe-ref-frappe-ui-spa-library-lubus.md) | lubus |  |
+| [Frappe Ref — Mobile / Responsive Patterns (lubus)](skills/frappe/frappe-ref-mobile-responsive-patterns-lubus.md) | lubus |  |
+| [Frappe Ref — SLA Implementation (lubus)](skills/frappe/frappe-ref-sla-implementation-lubus.md) | lubus |  |
 | [Frappe Reference: Api](skills/frappe/frappe-reference-api.md) | Frappe community |  |
 | [Frappe Reference: Background Jobs](skills/frappe/frappe-reference-background-jobs.md) | Frappe community |  |
 | [Frappe Reference: Bench Operations](skills/frappe/frappe-reference-bench-operations.md) | Frappe community |  |
@@ -295,6 +306,7 @@ Curated agent-skills. Sources per file in `source:` frontmatter (Impertio · Fra
 | [Frappe Skill — Agent Skills Review (Impertio)](skills/frappe/frappe-skill-agent-skills-review-impertio.md) | Impertio |  |
 | [Frappe Skill — Decisions Log (Impertio)](skills/frappe/frappe-skill-decisions-log-impertio.md) | Impertio |  |
 | [Frappe Skill — Dependencies Reference (Impertio)](skills/frappe/frappe-skill-dependencies-reference-impertio.md) | Impertio |  |
+| [Frappe Skill — Enterprise App Architecture (lubus)](skills/frappe/frappe-skill-enterprise-app-architecture-lubus.md) | lubus |  |
 | [Frappe Skill — Frappe Agent: Architect (Impertio)](skills/frappe/frappe-skill-frappe-agent-architect-impertio.md) | Impertio |  |
 | [Frappe Skill — Frappe Agent: Debugger (Impertio)](skills/frappe/frappe-skill-frappe-agent-debugger-impertio.md) | Impertio |  |
 | [Frappe Skill — Frappe Agent: Interpreter (Impertio)](skills/frappe/frappe-skill-frappe-agent-interpreter-impertio.md) | Impertio |  |
@@ -356,6 +368,7 @@ Curated agent-skills. Sources per file in `source:` frontmatter (Impertio · Fra
 | [Frappe Skill — Frappe Syntax: Whitelisted (Impertio)](skills/frappe/frappe-skill-frappe-syntax-whitelisted-impertio.md) | Impertio |  |
 | [Frappe Skill — Frappe Testing: Cicd (Impertio)](skills/frappe/frappe-skill-frappe-testing-cicd-impertio.md) | Impertio |  |
 | [Frappe Skill — Frappe Testing: Unit (Impertio)](skills/frappe/frappe-skill-frappe-testing-unit-impertio.md) | Impertio |  |
+| [Frappe Skill — frappe-ui UX Design Patterns (lubus)](skills/frappe/frappe-skill-frappe-ui-ux-design-patterns-lubus.md) | lubus |  |
 | [Frappe Skill — Lessons Learned (Impertio)](skills/frappe/frappe-skill-lessons-learned-impertio.md) | Impertio |  |
 | [Frappe Skill — Main Entry (netchampfaris)](skills/frappe/frappe-skill-main-entry-netchampfaris.md) | netchampfaris |  |
 | [Frappe Skill — Main Spec (Impertio)](skills/frappe/frappe-skill-main-spec-impertio.md) | Impertio |  |

@@ -1,6 +1,6 @@
 # forge-frappe-skill
 
-**A curated, categorized library of 458 agent-skills** — Frappe-focused, plus Engineering, Health/Yoga, Productivity, and Life-Ops. Each skill is a self-contained Markdown file (frontmatter + body) that any AI coding assistant can load to do real work — write idiomatic Frappe code (DocTypes, hooks, Query Builder, permissions, REST/RPC APIs, reports, Vue frontends, testing, ops) or follow a practical routine — instead of guessing.
+**A curated, categorized library of 471 agent-skills** — Frappe-focused, plus Engineering, Health/Yoga, Productivity, and Life-Ops. Each skill is a self-contained Markdown file (frontmatter + body) that any AI coding assistant can load to do real work — write idiomatic Frappe code (DocTypes, hooks, Query Builder, permissions, REST/RPC APIs, reports, Vue frontends, testing, ops) or follow a practical routine — instead of guessing.
 
 Usable **via Brain MCP** (or any MCP host that serves a skills directory) **and standalone** — drop the `.md` files into any agent that reads Markdown skills (Claude Code, Cursor, or a plain prompt).
 
@@ -16,6 +16,7 @@ This library was assembled from public, openly-licensed sources, then curated an
 |---|---|---|
 | **[Impertio-Studio/frappe-skills](https://github.com/Impertio-Studio/frappe-skills)** (MIT) | 333 | The largest source — a deterministic set of Frappe Framework & ERPNext development/operations skills. **Thank you, Impertio Studio — go star the upstream.** |
 | **Frappe community + [official Frappe docs](https://docs.frappe.io)** | 124 | Public Frappe Framework documentation + community knowledge, distilled into skills. |
+| **[lubusIN/frappe-skills](https://github.com/lubusIN/frappe-skills)** (MIT, © lubus) | 13 | Net-new depth — Frappe Manager (fm), frappe-ui SPA/UX patterns, SLA + enterprise app architecture, custom API rate-limiting. **Thank you, lubus — go star the upstream.** |
 | **[netchampfaris](https://github.com/netchampfaris)** | 1 | Frappe core contributor — entry-point skill. |
 
 If your work is represented here and you'd like different attribution (or removal), open an issue — happy to fix.
@@ -42,7 +43,7 @@ Each skill file:
 title: <human title>
 category: <folder>
 tags: [..]
-source: <Impertio | Frappe community | netchampfaris>
+source: <Impertio | Frappe community | lubus | netchampfaris>
 ---
 <markdown body — when to use, procedure, references>
 ```
@@ -72,4 +73,4 @@ See **[PLAYBOOK.md](PLAYBOOK.md)** (authoring rules) and **[MISTAKES.md](MISTAKE
 
 ## License
 
-**MIT** — see [LICENSE](LICENSE). This curation preserves the licensing of its upstream sources (Impertio-Studio/frappe-skills is MIT). Skills sourced from Frappe documentation/community remain under their original terms. If any attribution is incorrect, open an issue.
+**MIT** — see [LICENSE](LICENSE). This curation preserves the licensing of its upstream sources (Impertio-Studio/frappe-skills + lubusIN/frappe-skills are MIT). Skills sourced from Frappe documentation/community remain under their original terms. If any attribution is incorrect, open an issue.

@@ -6,6 +6,7 @@ authorship of the aggregated skills. Provenance is recorded per file in the
 `source:` frontmatter. Primary sources:
 
   - Impertio-Studio/frappe-skills (MIT) — https://github.com/Impertio-Studio/frappe-skills
+  - lubusIN/frappe-skills (MIT) — https://github.com/lubusIN/frappe-skills
   - Frappe Framework documentation + community — https://docs.frappe.io
   - netchampfaris (https://github.com/netchampfaris)
 
