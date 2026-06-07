@@ -59,6 +59,11 @@ override_whitelisted_methods = {
 override_doctype_class = {
     "Sales Order": "myapp.overrides.sales_order.CustomSalesOrder",
 }
+
+# v16+: multiple apps can extend the same controller without replacing it
+extend_doctype_class = {
+    "Sales Order": "myapp.overrides.sales_order.SalesOrderExtension",
+}
 ```
 
 ```python
@@ -132,7 +137,7 @@ Hooks cascade across installed apps — `frappe.get_hooks()` collects values fro
 - Keep handlers thin — call into a service module, don't put business logic inline in `hooks.py`.
 - After editing `hooks.py`, run `bench --site <site> migrate` (or `bench build` for assets).
 - `"*"` doc_events fire on every save — keep them cheap.
-- Never monkey-patch core in `hooks.py`; use `override_doctype_class` / overrides instead.
+- Prefer `override_doctype_class` / `doc_events` over runtime monkey-patching — last-resort runtime patches need `_original_*` backups and upgrade tests (see `skills/frappe/monkey-patching-overrides.md`).
 
 ## From Frappe docs
 

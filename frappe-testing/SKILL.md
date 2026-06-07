@@ -75,6 +75,12 @@ bench --site <site> run-tests --junit-xml-output=/tmp/junit.xml         # CI out
 ```
 Enable a test site: `bench --site <site> set-config allow_tests true`. Tests must run on a site whose name starts with `test_` to prevent accidental data loss on production sites.
 
+## Test planning (manual + regression)
+
+Before automating, define smoke (login + one submit flow) and critical-path cases in a structured
+format (preconditions → steps → expected). Cover permissions, hooks, API/import paths — not only
+Desk happy path. Template and checklists: `skills/frappe/test-planner.md`.
+
 ## Rules
 
 - Use `FrappeTestCase`, not bare `unittest.TestCase` — you get DB rollback + helpers.

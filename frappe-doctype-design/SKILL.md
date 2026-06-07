@@ -90,6 +90,14 @@ Beyond `depends_on` (show/hide), Frappe supports conditional mandatory and read-
 
 Use `eval:` expressions referencing `doc` — same pattern as client-side `frm.toggle_reqd`, but defined in DocType JSON.
 
+## Form layout (sections & columns)
+
+Group fields with **Section Break** labels (Basic Info, Items, Totals). Use **Column Break** for
+two-column density — limit to two columns. Put child tables in a full-width section; put read-only
+calculated fields in a collapsible Totals block (`collapsible: 1`). Primary/mandatory fields first.
+
+Deep reference: `skills/frappe/form-layout-optimizer.md`.
+
 ## Design rules
 
 - Don't over-Select; if options change at runtime, use a `Link` to a master DocType.

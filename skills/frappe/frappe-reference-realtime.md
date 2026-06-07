@@ -86,5 +86,29 @@ Port 9000 is the default Socket.IO port in Frappe development (`bench start`).
 - Use `doctype=` + `docname=` for document-specific updates (only users with the doc open receive it)
 - Site-wide broadcasts (no `user`/`doctype`) go to all Desk users — not guests or portal users
 
+## Progress bar pattern
+
+**Server** (from background job or long controller):
+
+```python
+for i in range(total):
+    # ... work ...
+    frappe.publish_realtime("task_progress", {
+        "progress": i + 1,
+        "total": total,
+        "message": f"Processing {i + 1} of {total}",
+    })
+```
+
+**Client:**
+
+```javascript
+frappe.realtime.on("task_progress", (data) => {
+    frappe.show_progress(data.message, data.progress, data.total);
+});
+```
+
+Keep payloads small; avoid flooding (>10 events/sec). Unsubscribe on page teardown to prevent duplicate handlers.
+
 ---
-*Source: github.com/netchampfaris/frappe-agent-skills/references/realtime.md*
+*Sources: github.com/netchampfaris/frappe-agent-skills/references/realtime.md; vyogotech/frappe-apps-manager (frappe-realtime-handler)*

@@ -100,6 +100,48 @@ frappe.listview_settings["Sales Order"] = {
 };
 ```
 
+## Client vs server
+
+```
+MUST the logic ALWAYS run (imports, API, bulk import, bench console)?
+├── YES → controller validate / hooks / Server Script
+└── NO  → client script for UX; pair validation on server when integrity matters
+```
+
+Desk **Client Script** records vs app **`doctype_js`**: use DB Client Scripts for prototypes;
+ship production logic in git-tracked JS via `hooks.py` when scripts exceed ~50 lines or need CI.
+(Legacy name **Custom Script** = same Desk DocType.)
+
+Deep reference: `skills/frappe/script-types-decision-tree.md`.
+
+## Choose the right form event
+
+```
+Need → handler
+├── Link filters                     → setup (once; avoid re-registering in refresh)
+├── Custom buttons                   → refresh
+├── Show/hide / mandatory toggles    → refresh AND {fieldname}
+├── Block bad saves                  → validate (frappe.throw)
+├── After save side effects          → after_save
+├── Recalculate on field edits       → {fieldname}
+├── Grid row lifecycle               → {table}_add / {table}_remove / child handlers
+└── Needs fully rendered DOM         → onload_post_render
+```
+
+For visibility toggles, call `frm.trigger('fieldname')` from `refresh` to sync initial state.
+
+## Server calls from the form
+
+```
+├── Single field lookup              → frappe.db.get_value (promise)
+├── Method on current document       → frm.call (controller @frappe.whitelist)
+├── Any whitelisted function         → frappe.call / frappe.xcall
+└── Avoid server calls in tight loops → batch via one whitelist method
+```
+
+Performance: register `set_query` only in `setup`; batch `frm.set_value({...})`; use `flt()` for
+arithmetic; recalculate totals on `{table}_remove`, not only field edits.
+
 ## Rules
 
 - Client scripts are **UX only** — duplicate every guard in a server `validate`/permission check.
@@ -107,7 +149,14 @@ frappe.listview_settings["Sales Order"] = {
 - Prefer `frappe.model.set_value` for child rows; mutating `locals` directly won't refresh the grid.
 - Don't put secrets or privileged logic in client scripts — they're shipped to the browser.
 - Ship reusable logic as an app JS file via `doctype_js` hook, not as DB "Client Script" records, for versioning.
+- NEVER rely on `frappe.msgprint` alone to abort saves — use `frappe.throw` in `validate`.
+- NEVER add action buttons only in `setup`/`onload` — `refresh` rebuilds UI chrome.
+- Clear dependent Link fields when parent filters change: `frm.set_value('child_link', '')`.
 
 ## From Frappe docs
 
 - Server-side link query override (`set_query` + custom method): https://docs.frappe.io/framework/user/en/guides/app-development/overriding-link-query-by-custom-script
+
+## Source (upstream decision trees)
+
+- https://github.com/vyogotech/frappe-apps-manager/blob/main/.cursor/skills/frappe-client-script-logic/SKILL.md
